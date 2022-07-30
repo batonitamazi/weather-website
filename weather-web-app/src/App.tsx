@@ -14,17 +14,33 @@ function App() {
   const [main, setMain] = useState<Main[]>([])
   const [cityName, setCityName] = useState("");
   const [background, setBackground] = useState("#29b6f6")
+  const [to, setTo] = useState("#29b6f6")
+  const [from, setFrom] = useState("#eceff1")
   const [search, setSearch]: [string, (search: string) => void] = React.useState("Tbilisi");
 
   const handleChange = (e: { target: { value: string; }; } | any) => {
     setTimeout(() => {
       setSearch(e.target.value);
-    }, 1000
+    }, 2000
     )
   };
 
   const handleClick = () => {
     loadWeather();
+    handleColorChange();
+  }
+  const handleColorChange = () => {
+    setBackground(
+      backgroundColors
+        .filter((name) => name.name === weather[0]?.main)[0]?.backgroundColor)
+    setTo(
+      backgroundColors
+        .filter((name) => name.name === weather[0]?.main)[0]?.to)
+    setFrom(
+      backgroundColors
+        .filter((name) => name.name === weather[0]?.main)[0]?.from
+    )
+    
   }
 
   const loadWeather = () => {
@@ -39,6 +55,7 @@ function App() {
   }
   useEffect(() => {
     loadWeather();
+    handleColorChange();
   }, [])
   console.log(background)
   return (
@@ -59,6 +76,8 @@ function App() {
               city={cityName}
               handleChange={handleChange}
               handleClick={handleClick}
+              to={to}
+              from={from}
             />
           </Grid>
         </Grid>

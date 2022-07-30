@@ -8,17 +8,19 @@ interface WeatherCardProps {
     city: string
     handleChange: Function | any 
     handleClick: Function | any 
+    to: string
+    from: string
 }
 
 function WeatherCard(props: WeatherCardProps) {
-    const { Weather, main, city, handleChange, handleClick  } = props
+    const { Weather, main, city, handleChange, handleClick, to, from  } = props
     return (
         <>
             {Weather?.map((weath: any, index: any) => {
                 return (
                     <Card sx={{
                         bgColor: '#8bc34a', width: '80vw', minHeight: '80vh', borderRadius: 10,
-                        background: `linear-gradient(to right top, #4fc3f7, #eceff1)`
+                        background: `linear-gradient(to right top, ${from}, ${to})`
                     }}
                         key={index}
                     >

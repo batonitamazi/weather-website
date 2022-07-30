@@ -30,9 +30,12 @@ function App() {
     handleColorChange();
   }
   const handleColorChange = () => {
-    setBackground(
-      backgroundColors
-        .filter((name) => name.name === weather[0]?.main)[0]?.backgroundColor)
+    {
+      weather[0].main && setBackground(
+        backgroundColors
+          .filter((name) => name.name === weather[0]?.main)[0]?.backgroundColor)
+    }
+
     setTo(
       backgroundColors
         .filter((name) => name.name === weather[0]?.main)[0]?.to)
@@ -40,7 +43,7 @@ function App() {
       backgroundColors
         .filter((name) => name.name === weather[0]?.main)[0]?.from
     )
-    
+
   }
 
   const loadWeather = () => {
@@ -57,7 +60,7 @@ function App() {
     loadWeather();
     handleColorChange();
   }, [])
-  console.log(background)
+  console.log(weather)
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -67,7 +70,7 @@ function App() {
           direction="column"
           alignItems="center"
           justifyContent="center"
-          sx={{ pt: 10 }}
+          sx={{ pt: 5 }}
         >
           <Grid item xs={12} lg={3} md={6}>
             <WeatherCard

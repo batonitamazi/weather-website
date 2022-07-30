@@ -19,7 +19,7 @@ function WeatherCard(props: WeatherCardProps) {
             {Weather?.map((weath: any, index: any) => {
                 return (
                     <Card sx={{
-                        bgColor: '#8bc34a', width: '80vw', minHeight: '80vh', borderRadius: 10,
+                        bgColor: '#8bc34a', width: '80vw', minHeight: '60vh', borderRadius: 10,
                         background: `linear-gradient(to right top, ${from}, ${to})`
                     }}
                         key={index}

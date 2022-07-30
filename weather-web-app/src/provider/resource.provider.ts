@@ -8,8 +8,8 @@ import { Serializer } from "../models/serializer";
 
 export class ResourceProvider<T extends Resource> {
     constructor(public endpoint: string, public serializer: Serializer) { }
-    public list = async (options: QueryOptions) => new Promise( (resolve, reject) => {
-         axios.get(`${environment.basePath}/${this.endpoint
+    public list = async (options: QueryOptions) => new Promise( async(resolve, reject) => {
+        await axios.get(`${environment.basePath}/${this.endpoint
             }?${options?.toQueryString()}`).then(async (resp) => resolve(await this.convertList(resp.data))).catch((error) => reject(error))
     })
     private convert(data: any): any {

@@ -14,8 +14,8 @@ function App() {
   const [main, setMain] = useState<Main[]>([])
   const [cityName, setCityName] = useState("");
   const [background, setBackground] = useState("#29b6f6")
-  const [to, setTo] = useState("#29b6f6")
-  const [from, setFrom] = useState("#eceff1")
+  const [to, setTo] = useState("#eceff1")
+  const [from, setFrom] = useState("#29b6f6")
   const [search, setSearch]: [string, (search: string) => void] = React.useState("Tbilisi");
 
   const handleChange = (e: { target: { value: string; }; } | any) => {
@@ -30,21 +30,24 @@ function App() {
     handleColorChange();
   }
   const handleColorChange = () => {
-    {
-      weather[0].main && setBackground(
+    weather[0]?.main && (
+      setBackground(
         backgroundColors
           .filter((name) => name.name === weather[0]?.main)[0]?.backgroundColor)
-    }
-
-    setTo(
-      backgroundColors
-        .filter((name) => name.name === weather[0]?.main)[0]?.to)
-    setFrom(
-      backgroundColors
-        .filter((name) => name.name === weather[0]?.main)[0]?.from
     )
-
+    weather[0]?.main && (
+      setTo(
+        backgroundColors
+          .filter((name) => name.name === weather[0]?.main)[0]?.to)
+    )
+    weather[0]?.main && (
+      setFrom(
+        backgroundColors
+          .filter((name) => name.name === weather[0]?.main)[0]?.from
+      )
+    )
   }
+
 
   const loadWeather = () => {
     const options = new QueryOptions()
@@ -59,7 +62,7 @@ function App() {
   useEffect(() => {
     loadWeather();
     handleColorChange();
-  }, [])
+  }, [weather[0]?.main])
   console.log(weather)
   return (
     <ThemeProvider theme={theme}>

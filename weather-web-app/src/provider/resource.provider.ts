@@ -16,9 +16,12 @@ export class ResourceProvider<T extends Resource> {
     private convert(data: any): any {
         return this.serializer.fromJson(data.weather);
     }
-    private convertList(data: any, endpoint = ""): any {
+    private convertList(data: any, endpoint = ""): any {  
         return {
+          resultsMain: data.main,
           results: data.weather.map((item: any) => this.serializer.fromJson(item)),
+          cityName: data.name,
         };
-      }
+    }
+    
 }

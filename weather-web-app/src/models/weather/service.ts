@@ -4,10 +4,10 @@ import { WeatherSerializer } from "./serializer";
 
 
 
-export class MainProvider extends ResourceProvider<Weather> {
+export class WeatherProvider extends ResourceProvider<Weather> {
     constructor(){
         super("weather", new WeatherSerializer())
     }
 }
 
-export const weatherService = new MainProvider();
+export const weatherService = new WeatherProvider();

@@ -1,36 +1,63 @@
-import { Box, Card, Grid, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Box, Card, Grid, TextField,Typography } from '@mui/material'
 import React from 'react'
+import { backgroundColors } from '../styles/backgroundColor';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+interface WeatherCardProps {
+    Weather: any
+    main: any 
+    city: string
+    handleChange: Function | any 
+    handleClick: Function | any 
+}
 
-function WeatherCard() {
+function WeatherCard(props: WeatherCardProps) {
+    const { Weather, main, city, handleChange, handleClick  } = props
     return (
-        
-            <Card sx={{
-                bgColor: '#8bc34a', width: 1280, minHeight: 720, borderRadius: 10,
-                background: 'linear-gradient(to right bottom, #4fc3f7, #b2ebf2)'
+        <>
+            {Weather?.map((weath: any, index: any) => {
+                return (
+                    <Card sx={{
+                        bgColor: '#8bc34a', width: '80vw', minHeight: '80vh', borderRadius: 10,
+                        background: `linear-gradient(to right top, #4fc3f7, #eceff1)`
+                    }}
+                        key={index}
+                    >
+                        <Grid container spacing={2} direction="column" alignItems="center"
+                            justifyContent="space-evenly" sx={{ pt: 5, pl: 2 }}>
+                            <Box>
+                                <TextField
+                                    sx={{ width: '50vw' }}
+                                    size='small'
+                                    label="search"
+                                    onChange={(e) => handleChange(e)}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <SavedSearchIcon 
+                                            sx={{color: '#4fc3f7', cursor: 'pointer'}}
+                                            onClick={handleClick}
+                                            />
+                                        )
+                                    }}
+                                />
+                            </Box>
+                            <Box sx={{ pt: 10, pr: 10 }}>
+                                <Typography variant="h5" fontWeight={700}>{city}</Typography>
+                                <Typography variant="h5" fontWeight={700}>{Math.floor(main?.temp-273.19)}</Typography>
+                                <Typography variant="h5" fontWeight={700}>{weath.description} ⛅</Typography>
+                            </Box>
+                            <Box sx={{ pt: 5, pr: 5 }}>
+                                <Typography variant="h5" fontWeight={700}>Humidity: {main?.humidity}%</Typography>
+                                <Typography variant="h5" fontWeight={700}>Wind Speed 20km/h</Typography>
+                            </Box>
 
-            }}>
-                <Grid container spacing={2} direction="column" alignItems="center"
-                    justifyContent="space-evenly" sx={{ pt: 5, pl: 5 }}>
-                    <Box sx={{ pl: 5 }}>
-                        <TextField
-                            sx={{width: '464px'}}
-                            size='small'
-                            label="search"
-                        />
-                    </Box>
-                    <Box sx={{ pt: 10 }}>
-                        <Typography variant="h5" fontWeight={700}>Georgia, Tbilisi</Typography>
-                        <Typography variant="h5" fontWeight={700}>22 C</Typography>
-                        <Typography variant="h5" fontWeight={700}>Sunny ☀️</Typography>
-                    </Box>
-                    <Box sx={{ pt: 5 }}>
-                        <Typography variant="h5" fontWeight={700}>Humidity: 55%</Typography>
-                        <Typography variant="h5" fontWeight={700}>Wind Speed 20km/h</Typography>
-                    </Box>
+                        </Grid>
+                    </Card>
+                )
+            })}
+        </>
 
-                </Grid>
 
-            </Card>
+
     )
 }
 
